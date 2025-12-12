@@ -1,0 +1,193 @@
+{
+  "screenId": "SCR-LOGIN-001",
+  "screenName": "ログイン画面",
+  "url": "https://omni-net.okasan.co.jp/web/rmfCmnCauSysLgiAction.do",
+  "formAction": "rmfCmnCauSysLgiAction.do",
+  "formMethod": "POST",
+  "formId": "rmfCmnCauSysLgiAuthWebDto",
+  "elements": {
+    "inputs": [
+      {
+        "id": "customerCode",
+        "name": "loginTuskLoginId",
+        "selector": "#passwd2",
+        "altSelectors": [
+          "input[name='loginTuskLoginId']",
+          "input[placeholder='お客様コード']"
+        ],
+        "type": "text",
+        "label": "お客様コード",
+        "placeholder": "お客様コード",
+        "maxLength": 10,
+        "tabIndex": 10,
+        "required": true,
+        "validation": {
+          "pattern": "^[0-9]{1,10}$",
+          "errorMessage": "お客様コードを入力してください"
+        }
+      },
+      {
+        "id": "loginPassword",
+        "name": "gnziLoginPswd",
+        "selector": "#passwd1",
+        "altSelectors": [
+          "input[name='gnziLoginPswd']",
+          "input[placeholder='ログインパスワード']"
+        ],
+        "type": "password",
+        "label": "ログインパスワード",
+        "placeholder": "ログインパスワード",
+        "maxLength": 47,
+        "tabIndex": 30,
+        "required": true,
+        "autocomplete": "off",
+        "validation": {
+          "minLength": 1,
+          "errorMessage": "ログインパスワードを入力してください"
+        }
+      }
+    ],
+    "buttons": [
+      {
+        "id": "loginButton",
+        "selector": "button[name='_ActionID'][value='buttonLogin']",
+        "altSelectors": [
+          "button.btn-proceed",
+          "button:has(i.ico-login)"
+        ],
+        "type": "submit",
+        "label": "ログイン",
+        "tabIndex": 40,
+        "action": "submit"
+      },
+      {
+        "id": "softwareKeyboardCustomerCode",
+        "selector": ".js-skey-btn-01",
+        "type": "button",
+        "label": "ソフトウェアキーボード（お客様コード）",
+        "purpose": "showSoftwareKeyboard"
+      },
+      {
+        "id": "softwareKeyboardPassword",
+        "selector": ".js-skey-btn-04",
+        "type": "button",
+        "label": "ソフトウェアキーボード（パスワード）",
+        "purpose": "showSoftwareKeyboard"
+      }
+    ],
+    "checkboxes": [
+      {
+        "id": "showPassword",
+        "selector": "#pwdview01-01",
+        "label": "パスワードを表示する",
+        "purpose": "togglePasswordVisibility"
+      }
+    ],
+    "links": [
+      {
+        "id": "passwordResetInfo",
+        "selector": "a[href*='password_reset.html']",
+        "label": "ログインできない場合の詳細",
+        "url": "https://www.okasan.co.jp/netrd/html/password_reset.html",
+        "target": "_blank"
+      },
+      {
+        "id": "passwordReissueByMail",
+        "selector": "a[href*='rmfCmnCauPwdRstMlgOfrInputAction.do']",
+        "label": "パスワード再発行（郵送）",
+        "url": "https://omni-net.okasan.co.jp/web/rmfCmnCauPwdRstMlgOfrInputAction.do",
+        "target": "_blank"
+      },
+      {
+        "id": "passwordResetWeb",
+        "selector": "a[href*='rmfCmnCauLpwRstOfrInputAction.do']",
+        "label": "パスワード再設定（WEB）",
+        "url": "https://omni-net.okasan.co.jp/web/rmfCmnCauLpwRstOfrInputAction.do",
+        "target": "_blank"
+      },
+      {
+        "id": "securityInfo",
+        "selector": "a[href*='security.html']",
+        "label": "セキュリティ対策について",
+        "url": "https://www.okasan.co.jp/netrd/html/help/security.html",
+        "target": "_blank"
+      },
+      {
+        "id": "homepageLink",
+        "selector": "a[href='https://www.okasan.co.jp']",
+        "label": "岡三証券ホームページへ",
+        "url": "https://www.okasan.co.jp"
+      }
+    ],
+    "hiddenFields": [
+      {
+        "name": "_controlParamKey",
+        "selector": "input[name='_controlParamKey']"
+      },
+      {
+        "name": "_loginTuskLoginId",
+        "selector": "input[name='_loginTuskLoginId']"
+      },
+      {
+        "name": "_gnziLoginPswd",
+        "selector": "input[name='_gnziLoginPswd']"
+      }
+    ],
+    "messages": [
+      {
+        "id": "securityNotice",
+        "selector": ".box-info-caution",
+        "type": "warning",
+        "description": "セキュリティに関する重要なお知らせ"
+      },
+      {
+        "id": "instructionText",
+        "selector": ".txt-read",
+        "type": "info",
+        "expectedText": "お客様コード、ログインパスワードを入力して「ログイン」ボタンを押してください。"
+      }
+    ]
+  },
+  "transitions": {
+    "onSuccess": {
+      "description": "ログイン成功",
+      "destination": "ダッシュボード/ホーム画面"
+    },
+    "onFailure": {
+      "description": "ログイン失敗",
+      "destination": "ログイン画面（エラー表示）"
+    },
+    "onMfaRequired": {
+      "description": "多要素認証が必要",
+      "destination": "認証コード入力画面"
+    }
+  },
+  "testScenarios": {
+    "login": {
+      "steps": [
+        {"action": "fill", "target": "#passwd2", "description": "お客様コードを入力"},
+        {"action": "fill", "target": "#passwd1", "description": "ログインパスワードを入力"},
+        {"action": "click", "target": "button[name='_ActionID']", "description": "ログインボタンをクリック"}
+      ]
+    }
+  },
+  "waitConditions": {
+    "pageLoad": {
+      "selector": "#rmfCmnCauSysLgiAuthWebDto",
+      "state": "visible"
+    },
+    "loginButtonReady": {
+      "selector": "button[name='_ActionID']",
+      "state": "enabled"
+    }
+  },
+  "metadata": {
+    "lastUpdated": "2025-12-12",
+    "sourceHtml": "岡三証券オムニネット ログイン画面",
+    "notes": [
+      "多要素認証（MFA）が必須化されている",
+      "ワンタイムパスワード設定が推奨されている",
+      "ソフトウェアキーボードが利用可能"
+    ]
+  }
+}
